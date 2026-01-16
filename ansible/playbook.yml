@@ -12,6 +12,8 @@
       git:
         repo: https://github.com/ed-donner/llm_engineering.git
         dest: "{{ project_dir }}"
+        version: main
+        force: yes
         update: yes
 
     - name: Create venv

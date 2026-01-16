@@ -1,7 +1,12 @@
 services:
   jupyter:
     build: .
+    environment:
+        OLLAMA_HOST: http://host.docker.internal:11434
     ports:
       - "8888:8888"
     volumes:
       - ./data:/workspace
+      - ./start.sh:/start.sh
+
+
