@@ -1,0 +1,30 @@
+---
+- name: Setup LLM Engineering Jupyter Environment
+  hosts: localhost
+  connection: local
+
+  vars:
+    project_dir: /workspace/llm_engineering
+    venv_dir: /workspace/venv
+
+  tasks:
+    - name: Clone repo
+      git:
+        repo: https://github.com/ed-donner/llm_engineering.git
+        dest: "{{ project_dir }}"
+        update: yes
+
+    - name: Create venv
+      command: python3 -m venv "{{ venv_dir }}"
+      args:
+        creates: "{{ venv_dir }}"
+
+    - name: Install requirements
+      pip:
+        requirements: "{{ project_dir }}/requirements.txt"
+        virtualenv: "{{ venv_dir }}"
+
+    - name: Install JupyterLab
+      pip:
+        name: jupyterlab
+        virtualenv: "{{ venv_dir }}"
